@@ -1,0 +1,17 @@
+celery==4.2.1
+Django==3.0.4
+django-braces==1.13.0
+django-cors-headers==3.2.1
+django-crispy-forms==1.7.2
+django-extensions==2.1.9
+django-filter
+django-gravatar2
+django-model-utils==3.2.0
+django-rest-auth==0.9.5
+djangorestframework==3.11.0
+gunicorn
+markdown
+psycopg2
+pytz==2019.1
+six==1.12.0
+sqlparse==0.3.0

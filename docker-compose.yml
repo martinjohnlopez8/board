@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+       POSTGRES_DB: 'db'
+       POSTGRES_HOST_AUTH_METHOD: "trust"
+  web:
+    build: .
+    command: bash -c "python board/manage.py runserver 0.0.0.0:8000 && gunicorn django.wsgi -b 0.0.0.0:8000"
+    volumes:
+      - .:/board
+    expose:
+      - "8000"
+    depends_on:
+      - db
+  celery:
+    build: .
+    volumes:
+      - .:/board
+    depends_on:
+      - db
+  nginx:
+    image: nginx:latest
+    container_name: ng01
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./board:/board
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
